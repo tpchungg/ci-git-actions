@@ -1,0 +1,22 @@
+# --- Các file sinh ra trong quá trình chạy Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+
+# --- File bộ nhớ tạm của Pytest (sinh ra lúc bạn chạy test) ---
+.pytest_cache/
+
+# --- Môi trường ảo (Nếu sau này bạn dùng) ---
+venv/
+env/
+.venv/
+
+# --- File chứa cấu hình nhạy cảm/mật khẩu (Bảo mật tuyệt đối) ---
+.env
+*.pem
+
+# --- Cấu hình riêng của trình soạn thảo và Hệ điều hành ---
+.vscode/
+.DS_Store
+Thumbs.db
+
