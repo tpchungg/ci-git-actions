@@ -20,3 +20,4 @@ env/
 .DS_Store
 Thumbs.db
 
+add_commit_push.sh
