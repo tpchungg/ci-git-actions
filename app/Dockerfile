@@ -1,36 +1,32 @@
 # syntax=docker/dockerfile:1
-
-# Comments are provided throughout this file to help you get started.
-# If you need more help, visit the Dockerfile reference guide at
-# https://docs.docker.com/go/dockerfile-reference/
-
-# Want to help us make this template better? Share your feedback here: https://forms.gle/ybq9Krt8jtBL3iCk7
-
-# This Dockerfile uses Docker Hardened Images (DHI) for enhanced security.
-# For more information, see https://docs.docker.com/dhi/
 ARG PYTHON_VERSION=3.12
-FROM python:${PYTHON_VERSION}-slim
 
-# Prevents Python from writing pyc files.
-ENV PYTHONDONTWRITEBYTECODE=1
+# Builder & Tester (Môi trường kiểm thử)
+FROM python:${PYTHON_VERSION}-slim AS tester
 
-# Keeps Python from buffering stdout and stderr to avoid situations where
-# the application crashes without emitting any logs due to buffering.
-ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
-# Copy the requirements file into the container first
+# Copy requirements và công cụ test (pytest)
 COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt pytest
 
-# Install the required packages
-RUN pip install --no-cache-dir -r requirements.txt
-
-# (Optional but recommended) Copy the rest of your application code
+# Copy toàn bộ mã nguồn để test
 COPY . .
 
-# Expose the port that the application listens on.
-EXPOSE 8000
+# THỰC THI TEST
+RUN python3 -m pytest -v
 
-# Run the application.
+# Production 
+
+FROM python:${PYTHON_VERSION}-slim AS production
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY . .
+EXPOSE 8000
 CMD ["python3", "-m", "uvicorn", "app:app", "--host=0.0.0.0", "--port=8000"]
