@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: https://github.com/tpchungg/ci-git-actions.git
     targetRevision: HEAD
-    path: dev
+    path: k8s
   destination: 
     server: https://kubernetes.default.svc
     namespace: myapp
