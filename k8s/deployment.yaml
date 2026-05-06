@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: py-app-deployment
-  namespace: argocd
+  namespace: py-app
   labels:
     app: py-app
 spec:
