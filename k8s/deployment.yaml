@@ -20,4 +20,4 @@ spec:
         image: tpchungg/py_app:9aceba4f3c8163ad0268da6a110e4b4e434a8108
         imagePullPolicy: Always 
         ports:
-        - containerPort: 8000 
+        - containerPort: 8080 
