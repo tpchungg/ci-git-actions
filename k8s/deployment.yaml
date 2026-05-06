@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: py-app-deployment
+  namespace: argocd
+  labels:
+    app: py-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: py-app
+  template:
+    metadata:
+      labels:
+        app: py-app
+    spec:
+      containers:
+      - name: py-app-container
+        image: tpchungg/py_app:latest 
+        imagePullPolicy: Always 
+        ports:
+        - containerPort: 8000 
